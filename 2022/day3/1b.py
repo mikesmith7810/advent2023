@@ -11,12 +11,13 @@ item_values = {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6, "g": 7, "h": 8, "
 
 def read_contents():
     global lines, rucksacks
-    lines = open("input.txt").readlines()
+    grouper = 0
+    lines = open("inputfull.txt").readlines()
     for i, rucksack in enumerate(lines):
-        rucksack = rucksack.strip('\n')
-        first = rucksack[:len(rucksack) // 2]
-        second = rucksack[len(rucksack) // 2:len(rucksack)]
-        rucksacks.append([first, second])
+        grouper += 1
+        if grouper == 3:
+            rucksacks.append([lines[i].strip('\n'), lines[i - 1].strip('\n'), lines[i - 2].strip('\n')])
+            grouper = 0
 
 
 read_contents()
@@ -27,8 +28,12 @@ for rucksack in rucksacks:
     for item_a in list(rucksack[0]):
         for item_b in list(rucksack[1]):
             if item_a == item_b:
-                item_found = True
-                break
+                for item_c in list(rucksack[2]):
+                    if item_a == item_c:
+                        item_found = True
+                        break
+                if item_found:
+                    break
         if item_found:
             items.append(item_a)
             item_found = False
@@ -36,6 +41,6 @@ for rucksack in rucksacks:
 
 for item in items:
     value = item_values.get(item)
-    total_priorities = total_priorities + value
+    total_priorities += value
 
 print("Total Priorities : %s" % total_priorities)
