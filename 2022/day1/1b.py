@@ -1,14 +1,20 @@
-max_calories = 0
-loop_max_calories = 0
+elfCalories = []
 
-for i, line in enumerate(open('inputfull.txt', 'r').readlines()):
-    strippedLine = line.strip('\n')
 
-    if strippedLine != "":
-        loop_max_calories = loop_max_calories + int(strippedLine)
-    else:
-        if loop_max_calories > max_calories:
-            max_calories = loop_max_calories
-        loop_max_calories = 0
+def read_calories():
+    global lines, line
+    calories = 0
+    lines = open("inputfull.txt").readlines()
+    for i, line in enumerate(lines):
+        stripped_line = line.strip('\n')
+        if stripped_line != "":
+            calories = calories + int(stripped_line)
+            if i == len(lines) - 1:
+                elfCalories.append(calories)
+        else:
+            elfCalories.append(calories)
+            calories = 0
 
-print(max_calories)
+read_calories()
+
+print("Max 3 Elves Calories : %s" % sum(sorted(elfCalories, reverse=True)[0:3]))
