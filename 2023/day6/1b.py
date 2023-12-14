@@ -5,8 +5,8 @@ matched_hands = []
 
 lines = open("inputfull.txt").read().split("\n")
 
-times = re.findall("\d+", lines[0])
-distances = re.findall("\d+", lines[1])
+times = re.findall("\d+", lines[0].replace(" ", ""))
+distances = re.findall("\d+", lines[1].replace(" ", ""))
 total_wins = []
 for i in range(0, len(times)):
 
@@ -22,7 +22,6 @@ for i in range(0, len(times)):
         if distance_travelled > race_distance:
             wins += 1
 
-
     total_wins.append(wins)
     wins = 0
-print("Total Wins Together : %s" % reduce(lambda x, y: x*y, total_wins))
+print("Total Wins Together : %s" % reduce(lambda x, y: x * y, total_wins))
