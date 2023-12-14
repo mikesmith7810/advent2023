@@ -9,7 +9,7 @@ hand_types = {"Five of a kind": [],  # example: 55555
               "High card": []}  # example: 5AKQJ
 
 hands = {}
-lines = open("inputa.txt").read().split("\n")
+lines = open("inputfull.txt").read().split("\n")
 
 for line in lines:
     split_line = line.split(" ")
